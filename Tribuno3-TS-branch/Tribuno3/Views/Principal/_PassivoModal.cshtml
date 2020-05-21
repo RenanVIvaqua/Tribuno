@@ -1,0 +1,111 @@
+﻿
+<html>
+
+<head>
+    <script>
+        var urlListarParcelas = '@Url.Action("ListarParcelas", "Passivo", new { area = "" })';
+    </script>
+
+    <script src="~/Scripts/ScriptTribuno/OperacaoModal.js"></script>
+</head>
+
+<body>
+    <div class="modal" id="modal-divida">
+        <div class="modal-dialog">
+            <div class="container-fluid">
+                <div class="modal-content ">
+                    <div class="modal-header text-right">
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <button class="btn-xs btn-danger" data-dismiss="modal">X</button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h4>Adicionar uma Nova Operação</h4>
+                            </div>
+                        </div>
+                    </div>
+                  
+                    <div class="modal-body">
+                        <form id="formPassivo" name="Inserir_Divida">
+                            <div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h2 class="panel-title">Dados da Operação</h2>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row  text-left">
+                                            <div class="form-group">
+                                                <div class="col-md-6">
+                                                    <label for="NomeOperacaoPassivo">Nome</label>
+                                                    <input class="form-control" id="NomeOperacao" name="NomeOperacao" placeholder="Ex: Nubank" type="text" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="DescricaoOperacao">Descrição</label>
+                                                    <input class="form-control" id="Descricao" name="Descricao" placeholder="Ex: Fatura do Cartão" type="text">
+                                                </div>
+                                            </div>                                              
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading ">
+                                        <h2 class="panel-title">Tipo de Cálculo de Parcela</h2>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row text-left">
+                                            <div class="form-group">
+                                                <div class="col-md-6">
+                                                    <label for="radioParcelas">Valor de Parcelas</label>
+                                                    <input type="radio" id="radioParcelas" name="TipodeCalculo" value="parcela" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="radioValor">Valor Total da Operação</label>
+                                                    <input type="radio" id="radioValor" name="TipodeCalculo" value="opercacao" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="form-group text-left">
+                                                <div class="col-md-4">
+                                                    <label for="qtdPassivoParcelas">Qtd Parcelas</label>
+                                                    <input class="form-control" id="QtdParcela" name="QtdParcela" placeholder="Ex: 2" type="number" required>
+                                                </div>                                         
+                                                <div class="col-md-4">                                                        
+                                                        <label for="valorOperacao">Valor</label>
+                                                        <input class="form-control" id="ValorParcela" name="ValorParcela" placeholder="Ex: 100" type="number" required>                                                     
+                                                </div>                                             
+                                                <div class="col-md-4">                                                  
+                                                        <label for="DataVencimento">Data 1º Vencimento</label>
+                                                        <input class="form-control" id="DataOperacao" name="DataOperacao" type="date" required>                                                  
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="col-md-8 text-left">
+                                        <h5 id="MsgCritica">.</h5> 
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        <input type="button" class="btn btn-info" value="Calcular" id="btCalcular">
+                                    </div>
+                                </div>
+                                <br>                                
+                                <table id="GridParcelas" class="table"></table>                                
+                                <div class="form-group">                                   
+                                    <input type="button" class="btn btn-info" value="Gravar" id="btGravar">
+                                </div>
+                            </div>
+                        </form>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

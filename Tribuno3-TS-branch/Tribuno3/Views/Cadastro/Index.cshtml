@@ -1,0 +1,31 @@
+﻿
+<html>
+
+<head>
+    <link href="~/Content/Styles/Login.css" rel="stylesheet" />   
+</head>
+    <body> 
+        <div class="container-fluid">
+            <div class="Form_Logar">
+                <form id="Cadastro" method="post" action="/Cadastro/Cadastro">                        
+                    <h1 class="text-center"><span class="log-in">TRIBUNO</span></h1>
+                    <p>                
+                        <label for="login"><i class="icon-user"></i>Nome</label>
+                       <input type="text" id="NomeUsuario" required name="NomeUsuario">             
+
+                       <label for="login"><i class="icon-user"></i>Login</label>
+                       <input type="text" id="LoginUsuario" required name="LoginUsuario">
+                     
+                       <label for="password"><i class="icon-lock"></i>Password</label>
+                       <input id="SenhaUsuario" type="password" required name="SenhaUsuario">
+                    </p>
+                    <p class="text-center">
+                       <button id="Enviar" class="bt_Logar" type="submit">Criar Usuario</button>   
+                       <input  value="Logar" class="bt_Logar" type="button" onclick="location.href='@Url.Action("Logar", "Cadastro")'" />
+                       <label>@ViewBag.ErroCadastro</label>
+                    </p>                   
+                </form>                 
+            </div>
+        </div>
+    </body>
+</html>

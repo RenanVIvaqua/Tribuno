@@ -1,0 +1,122 @@
+﻿body {
+    font: 14px/20px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-image: url('category-background-economia.jpg');
+    background-position-x: center;
+    background-repeat: no-repeat;
+    background-color: white;
+}
+
+#navbar 
+{
+    display: none        
+}
+
+.Form_Logar {
+    /* Size and position */
+    width: 500px;
+    margin: 60px auto 30px;
+    padding: 15px;
+    position: relative;
+    /* Styles */
+    background: #fffaf6;
+    border-radius: 4px;
+    color: #7e7975;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.2), 0 1px 5px rgba(0,0,0,0.2), 0 0 0 12px rgba(255,255,255,0.4);
+}
+    .Form_Logar h1 {
+        font-size: 15px;
+        font-weight: bold;
+        color: #bdb5aa;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #EBE6E2;
+        text-shadow: 0 2px 0 rgba(255,255,255,0.8);
+        box-shadow: 0 1px 0 rgba(255,255,255,0.8);
+    }
+        .Form_Logar h1 .log-in,
+        .Form_Logar h1 .sign-up {
+            display: inline-block;
+            text-transform: uppercase;
+        }
+
+        .Form_Logar h1 .log-in {
+            color: #6c6763;
+            padding-right: 2px;
+        }
+
+    .Form_Logar .float {
+        width: 50%;
+        float: left;
+        padding-top: 15px;
+        border-top: 1px solid rgba(255,255,255,1);
+    }
+
+        .Form_Logar .float:first-of-type {
+            padding-right: 5px;
+        }
+
+        .Form_Logar .float:last-of-type {
+            padding-left: 5px;
+        }
+
+    .Form_Logar label {
+        display: block;
+        padding: 0 0 5px 2px;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-weight: 400;
+        text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+        font-size: 11px;
+    }
+        .Form_Logar label i {
+            margin-right: 5px; /* Gap between icon and text */
+            display: inline-block;
+            width: 10px;
+        }
+
+    .Form_Logar input[type=text],
+    .Form_Logar input[type=password] {
+        font-family: 'Lato', Calibri, Arial, sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        display: block;
+        width: 100%;
+        padding: 5px;
+        margin-bottom: 5px;
+        border: 3px solid #ebe6e2;
+        border-radius: 5px;
+        transition: all 0.3s ease-out;
+    }
+     
+.bt_Logar {    
+    padding: 10px 30px;
+    color: #333;
+    border: 1px solid #333;
+    background: #fff;
+    border-radius: 20px;
+    transition: all ease-in-out 0.3s;
+}
+
+    .bt_Logar:hover {
+        border-color: #fff;
+        background: #666;
+        color: #fff;
+    }
+    
+.bt_cadastrar {    
+    padding: 10px 30px;
+    color: #333;
+    border: 1px solid #333;
+    background: #fff;
+    border-radius: 20px;
+    transition: all ease-in-out 0.3s;
+}
+
+    .bt_cadastrar:hover {
+        border-color: #fff;
+        background: #666;
+        color: #fff;
+    }
+    
+#LinkCadastrar {
+    color: #bdb5aa
+}

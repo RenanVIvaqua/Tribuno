@@ -1,0 +1,75 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<head>
+    <style>
+         body {
+            padding-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <br>
+    <br>
+    <div class="container">
+        <form id="Inserir_Rendimento" name="Inserir_Rendimento" method="post" action="Ativos/Inserir_Rendimento">
+
+            <div class="row">
+                <div class="col-md-offset-4">
+                    <br>
+                    <h2>Inserir Rendimento</h2>
+                    <div class="form-group">
+                        <label>Rendimento Referente:</label>
+                        <input class="form-control" id="NomeOperacao" name="NomeOperacao" type="text" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-offset-4">
+                    <div class="form-group">
+                        <label>Valor da Parcela R$: </label>
+                        <input class="form-control" id="ValorParcela" name="ValorParcela" type="number" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-offset-4">
+                    <div class="form-group">
+                        <label>Quantidade de Parcelas: </label>
+                        <input class="form-control" id="QtdParcela" type="number" name="QtdParcela" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-offset-4">
+                    <div class="form-group">
+                        <label>Data de Contabil: </label>
+                        <input class="form-control" id="DataOperacao" name="DataOperacao" type="datetime" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-offset-4">
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <input class="form-control" id="Descricao" name="Descricao" maxlength="200">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-offset-4">
+                    <button id="bt_Enviar" type="submit" name="bt_Enviar" class="btn-success"> Inserir Rendimento </button>
+                    <a href="@Url.Action("Index","Principal")">Voltar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

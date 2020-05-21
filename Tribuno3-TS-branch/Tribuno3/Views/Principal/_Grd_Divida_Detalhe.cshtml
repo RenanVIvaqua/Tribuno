@@ -1,0 +1,35 @@
+﻿
+<html>
+<head>
+    <script type="text/javascript">
+        window.onload = function () {}
+    </script>    
+</head>
+
+<body>
+    @{
+        WebGrid Grid = new WebGrid();
+        Grid.Bind(source: Model);
+    }
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-1">      
+                <div class="table-wrapper">
+                    <label>Valor total de Divida</label>
+                    @Grid.GetHtml(
+                 tableStyle: "table",
+                 footerStyle: "foot",
+                 displayHeader: true,
+                 columns: Grid.Columns(
+                     //Colunas
+                     Grid.Column("Divida", header: "Divida", canSort: false),
+                     Grid.Column("Parcela", header: "Parcela", canSort: false),
+                     Grid.Column("Valor", header: "Valor", canSort: false),
+                     Grid.Column("Vencimento", header: "Vencimento", canSort: false)
+                 ))
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,122 @@
+﻿
+<html>
+<head>
+    <script type="text/javascript">
+
+        function enviaInformacoes(Id_Divida, Nm_Divida, Qtd_Parcelas, Vl_Divida, Descricao) {
+            $.ajax({
+                url: "/Principal/Alterar",
+                type: "POST",
+                data: { 'Id_Divida': Id_Divida, 'Nm_Divida': Nm_Divida, 'Qtd_Parcelas': Qtd_Parcelas, 'Vl_Divida': Vl_Divida, 'Descricao': Descricao },
+                datatype: "json",
+                success: function (data) {
+                    alert(data.Mensagem);
+                }
+            });
+        }
+
+        function ProximoMes() {
+            $.ajax({
+                url: "/Principal/_Informativos",
+                type: "POST",
+                data: { 'alterarMes': 1 },
+                datatype: "json",
+                success: function (data) {
+                    $("#Informativo").html(data)
+                }
+            });
+        }
+
+        function AtualizarInformativos() {
+            $.ajax({
+                url: "/Principal/_Informativos",
+                type: "POST",
+                data: { 'alterarMes': 0 },
+                datatype: "json",
+                success: function (data) {
+                    $("#Informativo").html(data)
+                }
+            });
+        }
+
+        function AnteriorMes() {
+            $.ajax({
+                url: "/Principal/_Informativos",
+                type: "POST",
+                data: { 'alterarMes': 2 },
+                datatype: "json",
+                success: function (data) {
+                    $("#Informativo").html(data)
+                }
+            });
+        }
+
+    </script>
+</head>
+
+<body>
+    <div id="Informativo">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-offset-0 text-center">
+                    <h2 id="mes_Referente">@ViewData.Model.Mes_ref</h2>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-sm-6 text-right col-xs-6">
+                    <button class="btn btn-xs btn-info" onclick="AnteriorMes()">Anterior</button>
+                </div>
+                <div class="col-sm-6 text-left col-xs-6">
+                    <button class="btn btn-xs btn-info" onclick="ProximoMes()">Proximo</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3 text-center">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Rendimento</h3>
+                        </div>
+                        <div class="panel-body">
+                            <h3 id="Label_Valor">R$@Convert.ToDouble(ViewData.Model.Rendimento).ToString(@"#,###.##")</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3 text-center">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Despesa</h3>
+                        </div>
+                        <div class="panel-body">
+                            <h3 id="Label_Valor">R$@Convert.ToDouble(ViewData.Model.Despesa).ToString(@"#,###.##")</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3 text-center">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Lucro</h3>
+                        </div>
+                        <div class="panel-body">
+                            <h3 id="Label_Valor">R$@Convert.ToDouble(ViewData.Model.Receita).ToString(@"#,###.##")</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3 text-center">
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">%Lucro</h3>
+                        </div>
+                        <div class="panel-body">
+                            <h3 id="Label_Valor">%@Convert.ToDouble(ViewData.Model.Lucro).ToString(@"#.##")</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

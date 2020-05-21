@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <script>
+        var urlConsultar = '@Url.Action("ConsultarPassivo", "Principal", new { area = "" })';
+        var urlClienteList = '@Url.Action("listarDivida", "Principal", new { area = "" })';
+    </script>
+
+
+</head>
+
+<body>    
+    <table id="gridJtable" style="width:99%" class="table"></table>  
+    @{Html.RenderAction("_PassivoModal", "Principal");}
+</body>
+
+</html>
+
