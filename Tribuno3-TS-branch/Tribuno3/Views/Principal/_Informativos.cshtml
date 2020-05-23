@@ -1,57 +1,8 @@
 ﻿
 <html>
 <head>
-    <script type="text/javascript">
-
-        function enviaInformacoes(Id_Divida, Nm_Divida, Qtd_Parcelas, Vl_Divida, Descricao) {
-            $.ajax({
-                url: "/Principal/Alterar",
-                type: "POST",
-                data: { 'Id_Divida': Id_Divida, 'Nm_Divida': Nm_Divida, 'Qtd_Parcelas': Qtd_Parcelas, 'Vl_Divida': Vl_Divida, 'Descricao': Descricao },
-                datatype: "json",
-                success: function (data) {
-                    alert(data.Mensagem);
-                }
-            });
-        }
-
-        function ProximoMes() {
-            $.ajax({
-                url: "/Principal/_Informativos",
-                type: "POST",
-                data: { 'alterarMes': 1 },
-                datatype: "json",
-                success: function (data) {
-                    $("#Informativo").html(data)
-                }
-            });
-        }
-
-        function AtualizarInformativos() {
-            $.ajax({
-                url: "/Principal/_Informativos",
-                type: "POST",
-                data: { 'alterarMes': 0 },
-                datatype: "json",
-                success: function (data) {
-                    $("#Informativo").html(data)
-                }
-            });
-        }
-
-        function AnteriorMes() {
-            $.ajax({
-                url: "/Principal/_Informativos",
-                type: "POST",
-                data: { 'alterarMes': 2 },
-                datatype: "json",
-                success: function (data) {
-                    $("#Informativo").html(data)
-                }
-            });
-        }
-
-    </script>
+    <script src="~/Scripts/ScriptTribuno/Informativos.js"></script>
+    <script src="~/Scripts/ScriptTribuno/ListarDivida.js"></script>
 </head>
 
 <body>
@@ -75,9 +26,10 @@
                 <div class="col-sm-3 text-center">
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Rendimento</h3>
+                            <h3 class="panel-title">Rendimento</h3>                            
                         </div>
                         <div class="panel-body">
+                            <label id="AddRendimento"><a onclick="AddOperacao('Rendimento')" style="cursor:pointer">+ Adicionar Rendimento</a></label>      
                             <h3 id="Label_Valor">R$@Convert.ToDouble(ViewData.Model.Rendimento).ToString(@"#,###.##")</h3>
                         </div>
                     </div>
@@ -89,6 +41,7 @@
                             <h3 class="panel-title">Despesa</h3>
                         </div>
                         <div class="panel-body">
+                            <label id="AddRendimento"><a onclick="AddOperacao('Passivo')" style="cursor:pointer">+ Adicionar Despesa</a></label>
                             <h3 id="Label_Valor">R$@Convert.ToDouble(ViewData.Model.Despesa).ToString(@"#,###.##")</h3>
                         </div>
                     </div>
@@ -100,6 +53,7 @@
                             <h3 class="panel-title">Lucro</h3>
                         </div>
                         <div class="panel-body">
+                            <br>
                             <h3 id="Label_Valor">R$@Convert.ToDouble(ViewData.Model.Receita).ToString(@"#,###.##")</h3>
                         </div>
                     </div>
@@ -111,6 +65,7 @@
                             <h3 class="panel-title">%Lucro</h3>
                         </div>
                         <div class="panel-body">
+                            <br>
                             <h3 id="Label_Valor">%@Convert.ToDouble(ViewData.Model.Lucro).ToString(@"#.##")</h3>
                         </div>
                     </div>

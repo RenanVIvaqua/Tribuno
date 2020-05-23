@@ -153,6 +153,12 @@ namespace Tribuno3.Controllers
                     if (int.TryParse(identity_Inserido, out int identityInserido))
                         passivo.InserirParcela(listaParcelasPassivo, identityInserido);
                 }
+                else 
+                {
+                    
+                
+                }
+               
             }
             else if (pTipoOperacaoDefinida == TipoOperacao.Rendimento)
             {

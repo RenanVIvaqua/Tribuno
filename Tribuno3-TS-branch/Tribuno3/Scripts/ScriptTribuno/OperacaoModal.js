@@ -88,6 +88,8 @@ $(document).ready(function () {
         AtualizarGrid();
         AtualizarGrafico();
         AtualizarInformativos();
+        PreencheCamposModalPassivo(null);
+       
     });
 
     function abreModal(data) {
