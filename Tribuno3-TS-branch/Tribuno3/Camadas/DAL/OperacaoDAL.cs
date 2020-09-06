@@ -166,7 +166,7 @@ namespace Tribuno3.Camadas.DAL
             pParam.Add("ValorParcela", pOperacao.ValorParcela.ToString());
             pParam.Add("QtdParcela", pOperacao.QtdParcela.ToString());           
             pParam.Add("Descricao", pOperacao.Descricao.ToString());
-            pParam.Add("DataAlteracao", pOperacao.DataAlteracao.ToString());
+            pParam.Add("DataAlteracao", pOperacao.DataAlteracao.ToString("yyyy/M/d HH:mm:ss"));
             pParam.Add("TipoOperacao", pOperacao.TipoOperacao.ToString());
             pParam.Add("TipoCalculo", pOperacao.TipoCalculo.ToString());
 
@@ -188,7 +188,7 @@ namespace Tribuno3.Camadas.DAL
                 pParam.Add("IdOperacao", pIdDivida.ToString());
                 pParam.Add("NumeroParcela", item.Numero_Parcela.ToString());
                 pParam.Add("Valor_Parcela", item.Valor_Parcela.ToString());
-                pParam.Add("DataVencimento", item.DataVencimentoParcela.ToString());
+                pParam.Add("DataVencimento", item.DataVencimentoParcela.ToString("yyyy/M/d HH:mm:ss"));
                 pParam.Add("StatusParcela", Convert.ToString((int)item.Status));
 
                 Acesso.Executar(Processos.Executar.Inserir_Operacao_Parcela, Util.ParametroSql(pParam));

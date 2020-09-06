@@ -36,8 +36,7 @@ $(document).ready(function () {
 
     $("#btCalcular").click(function (e) {
 
-        $("#TipoOperacao").attr("value", TipoOperacao);
-        alert(TipoOperacao);                
+        $("#TipoOperacao").attr("value", TipoOperacao);               
         var OperacaoModel = CriarObjetoOperacao(); 
         
 

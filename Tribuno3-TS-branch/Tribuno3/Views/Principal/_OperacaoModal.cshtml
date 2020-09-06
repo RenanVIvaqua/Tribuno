@@ -20,7 +20,7 @@
                     </div>
                     <div class="modal-body text-left">
 
-                        @using (Html.BeginForm(controllerName: "Operacao", actionName: "GravarParcelas", method: FormMethod.Post))
+                        @using (Html.BeginForm(controllerName: "Operacao", actionName: "GravarParcelas", method: FormMethod.Post, htmlAttributes: new { id = "formOperacao" } ))
                         {
                             //@Html.AntiForgeryToken()
 
