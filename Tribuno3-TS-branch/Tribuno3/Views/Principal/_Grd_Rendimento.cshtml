@@ -2,13 +2,36 @@
 <html>
 <head>
     <script>
-        var urlConsultarRendimento = '@Url.Action("ConsultarRendimento", "Principal", new { area = "" })';
+        var urlConsultarOperacao = '@Url.Action("ConsultarOperacao", "Principal", new { area = "" })';
         var urlListRendimento = '@Url.Action("listarRendimento", "Principal", new { area = "" })';
+
     </script>
+    <script src="~/Scripts/ScriptTribuno/Informativos.js"></script>
 </head>
 
-<body>    
-        <table id="gridRendimento" style="width:100%" class="table"></table>
+<body>   
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table mr-1"></i>
+            Rendimento
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="gridRendimento" style="width:100%" class="table table-bordered"></table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 text-right">
+                <label for="filtroMes">Mês</label>
+                <input type="radio" id="filtroMes" onchange="FiltrarParcelasGrid('Rendimento','Mes')" name="filtroGridRendimentoParcelas" required>
+            </div>
+            <div class="col-md-6 text-left">
+                <label for="filtroTodasParcelas">Todos</label>
+                <input type="radio" id="filtroTodasParcelas" onchange="FiltrarParcelasGrid('Rendimento','Todos')" name="filtroGridRendimentoParcelas" required>
+            </div>
+        </div>
+    </div>    
 </body>
 </html>
 

@@ -15,8 +15,7 @@ namespace Tribuno3.Camadas.DAL
         #region Atributos
         protected AcessoDados Acesso = new AcessoDados();
         protected DTO.UsuarioDTO Usuario = new UsuarioDTO();
-        protected PrincipalBLL Generico = new PrincipalBLL();
-        protected Dictionary<string, string> pParam = new Dictionary<string, string>();
+        protected BLL.Util Generico = new BLL.Util(); 
         #endregion
 
         /// <summary>
@@ -27,10 +26,12 @@ namespace Tribuno3.Camadas.DAL
         /// <returns></returns>
         public DTO.UsuarioDTO ConsultarUsuario(string pUsuario, string pSenha)
         {
-            pParam.Add("LoginUsuario", pUsuario);
-            pParam.Add("SenhaUsuario", Hash.GerarHasg(pSenha));
+            Dictionary<string, string> pParam = new Dictionary<string, string>();
 
-           var ds = Acesso.Consultar(Processos.Executar.Consultar_Usuario, Generico.ParametroSql(pParam));
+            pParam.Add("LoginUsuario", pUsuario);
+            pParam.Add("SenhaUsuario", Hash.GerarHasg(pSenha));        
+
+            var ds = Acesso.Consultar(Processos.Executar.Consultar_Usuario, Generico.ParametroSql(pParam));
 
             if (ds.Rows.Count > 0)
             {
@@ -60,6 +61,8 @@ namespace Tribuno3.Camadas.DAL
         /// <returns></returns>
         public DTO.UsuarioDTO ConsultarUsuario(string pIdUsuario)
         {
+            Dictionary<string, string> pParam = new Dictionary<string, string>();
+
             pParam.Add("ID_USUARIO", pIdUsuario);           
 
             var ds = Acesso.Consultar(Processos.Executar.Consultar_Usuario_Id, Generico.ParametroSql(pParam));
@@ -91,6 +94,8 @@ namespace Tribuno3.Camadas.DAL
         /// <param name="pUsuario"></param>
         public void InsirirUsuario(UsuarioCadastro pUsuario)
         {
+            Dictionary<string, string> pParam = new Dictionary<string, string>();
+
             pParam.Add("NM_USUARIO", pUsuario.NomeUsuario);
             pParam.Add("NM_LOGIN", pUsuario.LoginUsuario);
             pParam.Add("NM_SENHA", Hash.GerarHasg(pUsuario.SenhaUsuario));

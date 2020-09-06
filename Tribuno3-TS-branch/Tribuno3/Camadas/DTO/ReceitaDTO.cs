@@ -5,47 +5,13 @@ using System.Web;
 
 namespace Tribuno3.Camadas.DTO
 {
-    public class ReceitaDTO : Operacao
+    public class ReceitaDTO
     {
-        private double? rendimento;
-        private double? despesa;
-        private double? receita;
-        private double? lucro;
-        private string mes_ref;
-
-        #region Encapsulamento
-        public int Id_Usuario
-        {
-            get { return id_Usuario; }
-            set { id_Usuario = value; }
-        }
-        public double? Rendimento
-        {
-            get { return rendimento; }
-            set { rendimento = value; }
-        }
-        public double? Despesa
-        {
-            get { return despesa; }
-            set { despesa = value; }
-        }
-        public double? Receita
-        {
-            get { return receita; }
-            set { receita = value; }
-        }
-        public double? Lucro
-        {
-            get { return lucro; }
-            set { lucro = value; }
-        }
-        public string Mes_ref
-        {
-            get { return mes_ref; }
-            set { mes_ref = value; }
-        }
-        #endregion
-
-
+        public int Id_Usuario { get; set; }
+        public double? Rendimento { get; set; }
+        public double? Despesa { get; set; }
+        public double? Receita { get; set; }
+        public double? Lucro { get; set; }
+        public string Mes_ref { get; set; }
     }
 }

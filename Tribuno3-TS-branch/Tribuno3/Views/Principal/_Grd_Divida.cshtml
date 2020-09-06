@@ -3,16 +3,26 @@
 <head>
 
     <script>
-        var urlConsultar = '@Url.Action("ConsultarPassivo", "Principal", new { area = "" })';
+        var urlConsultarOperacao = '@Url.Action("ConsultarOperacao", "Principal", new { area = "" })';
         var urlClienteList = '@Url.Action("listarDivida", "Principal", new { area = "" })';
     </script>
-
+    <link href="~/CSS/Principal/styles.css" rel="stylesheet" />
 
 </head>
 
-<body>    
-    <table id="gridJtable" style="width:99%" class="table"></table>  
-    @{Html.RenderAction("_PassivoModal", "Principal");}
+<body>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table mr-1"></i>
+            Passivo
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="gridJtable" style="width:99%" class="table table-bordered"></table>
+                @{Html.RenderAction("_OperacaoModal", "Principal");}
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

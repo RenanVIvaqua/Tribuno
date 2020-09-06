@@ -1,35 +1,37 @@
 ﻿<html>
 <head>
-    <script src="~/Scripts/ScriptTribuno/ListarDivida.js"></script>
+    <script src="~/Scripts/ScriptTribuno/GridOperacao.js"></script>
 
-    <script>       
-        var urlConsultar = '@Url.Action("ConsultarPassivo", "Principal", new { area = "" })';
-        var urlGrafico = '@Url.Action("_Grafico", "Principal", new { area = "" })';       
+    <script>
 
-        var urlConsultarRendimento = '@Url.Action("ConsultarRendimento", "Principal", new { area = "" })';
+        var urlConsultarOperacao = '@Url.Action("ConsultarOperacao", "Principal", new { area = "" })';
+        var urlGrafico = '@Url.Action("_Grafico", "Principal", new { area = "" })';
         var urlListRendimento = '@Url.Action("listarRendimento", "Principal", new { area = "" })';
     </script>
-       
+
 </head>
 <body>
-    <div>       
-        <br />
-        <div class="container-fluid">
-            <div class="row">
-                <div id="Grafico" class="col-sm-12">
+    <div id="layoutSidenav_content">
+        <main>
+            <br />
+            <div class="container-fluid">
+                @{Html.RenderAction("_Informativos", "Principal");}
+                <div class="row">
+                    @{Html.RenderAction("_Grafico", "Principal");}
+
                     @{Html.RenderAction("_Grafico", "Principal");}
                 </div>
-            </div>
-        <br/>
-            <div class="row">
-                <div class="col-sm-6" align="center">
-                    @{Html.RenderAction("_Grd_Rendimento", "Principal");}
+                <br />
+                <div class="row">
+                    <div class="col-sm-6" align="center">
+                        @{Html.RenderAction("_Grd_Rendimento", "Principal");}
+                    </div>
+                    <div class="col-sm-6" align="center">
+                        @{Html.RenderAction("_Grd_Divida", "Principal");}
+                    </div>
                 </div>
-                <div class="col-sm-6" align="center">
-                    @{Html.RenderAction("_Grd_Divida", "Principal");}
-                </div>
             </div>
-        </div>
+        </main>
 
     </div>
 </body>

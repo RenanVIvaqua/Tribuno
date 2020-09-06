@@ -1,37 +1,70 @@
-﻿
-<HTML>  
+﻿@model Tribuno3.Models.UsuarioModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
 <head>
-    <link href="~/Content/Styles/Login.css" rel="stylesheet" />
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+
+    <link href="~/CSS/Login/css.css" rel="stylesheet" /> 
+    <link rel="stylesheet" href="~/CSS/Login/login.css">
+    <link href="~/CSS/Login/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/CSS/Login/materialdesignicons.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.validate.js"></script>
+
 </head>
 <body>
-    <div class="container-fluid">
-        <form class="Form_Logar" id="Form_Logar" name="Form_Logar" method="post" action="/Login/Logar">
-            <div class="row">               
-                    <h1 class="text-center"><span class="log-in">Tribuno</span></h1>                
-            </div>
+    <main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+        <div class="container">
+            @using (Html.BeginForm(actionName: "Index", controllerName: "Login", method: FormMethod.Post))
+            {
+                //@Html.AntiForgeryToken()
+                              
+                <div class="card login-card">
+                    <div class="row no-gutters">
+                        <div class="col-md-5">
+                            <img src="~/Imagem/Login/login.jpg" alt="login" class="login-card-img">
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <div class="brand-wrapper">
+                                    <img src="~/Imagem/Login/logo.svg" alt="logo" class="logo">
+                                </div>
+                                <p class="login-card-description">Faça login em sua conta</p>
+                                <form action="#!">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.LoginUsuario, htmlAttributes: new { @class = "sr-only" })
+                                        @Html.EditorFor(model => model.LoginUsuario, new { htmlAttributes = new { @class = "form-control", placeholder = "login"} })
+                                        @Html.ValidationMessageFor(model => model.LoginUsuario, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        @Html.LabelFor(model => model.SenhaUsuario, htmlAttributes: new { @class = "sr-only" })
+                                        @Html.EditorFor(model => model.SenhaUsuario, new { htmlAttributes = new { @class = "form-control", placeholder = "*******", type = "password"} })
+                                        @Html.ValidationMessageFor(model => model.SenhaUsuario, "", new { @class = "text-danger" })
+                                    </div>
+                                    <input name="login" id="login" class="btn btn-block login-btn mb-4" type="submit" value="Login">
 
-            <div class="row">                
-                    <label for="login"><i class="icon-user"></i>Login</label>
-                    <input type="text" id="LoginUsuario" name="LoginUsuario" required>               
-            </div>
-            <div class="row">
-                <label for="password"><i class="icon-lock"></i>Password</label>
-                <input id="SenhaUsuario" name="SenhaUsuario" required type="password">
-            </div>
-            <br>
-            <div class="clearfix">
-                <div class="row">
-                    <button id="bt_Logar" class="bt_Logar" name="bt_Logar" type="submit">Logar</button>
-                    <input value="Cadastrar" class="bt_Logar" type="button" onclick="location.href='@Url.Action("Cadastrar", "Login")'" />
+                                </form>
+                                <a href="#!" class="forgot-password-link">Esqueceu a senha ?</a>
+                                <p class="login-card-footer-text">Ainda não tem conta ? <a href="@Url.Action("Index", "Cadastro")" class="text-reset">Cadastre-se Aqui</a></p>
+                                <nav class="login-card-footer-nav">
+                                    <a href="#!"></a>
+
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="text-center">
-                <label>@ViewBag.Erro</label>
-            </div>
-</form>
-     </div>
+            }
+        </div>
+    </main>
 </body>
-</HTML>
-
-
-
+</html>

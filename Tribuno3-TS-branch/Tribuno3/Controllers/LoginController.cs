@@ -18,13 +18,13 @@ namespace Tribuno3.Controllers
         UsuarioDTO DTO = new UsuarioDTO();   
         
         public ActionResult Index()
-        {
-            ViewBag.Erro = Session["Erro"];
-            return PartialView();
+        {                                   
+            return View();           
         }
 
         [HttpPost]
-        public ActionResult Logar(UsuarioModel usuarioModel)
+        //[ValidateAntiForgeryToken]
+        public ActionResult Index([Bind(Include = "LoginUsuario,SenhaUsuario")] UsuarioModel usuarioModel)
         { 
             if (!this.ModelState.IsValid)
             {
@@ -35,7 +35,7 @@ namespace Tribuno3.Controllers
                 
                 Session["Erro"] = string.Join(Environment.NewLine, erros);
 
-                return RedirectToAction("Index", "Login");
+                return View(usuarioModel);
             }
 
             DTO = BLL.ConsultarUsuario(usuarioModel.LoginUsuario,usuarioModel.SenhaUsuario);
@@ -54,23 +54,21 @@ namespace Tribuno3.Controllers
                 Session["Id_Usuario"] = DTO.Id_Usuario.ToString();
                 return RedirectToAction("Index", "Principal");
             }
-            else
-            {  // Se usuario e senha estiver incorreto, exibe mensagem de erro !
-                Session["Erro"] = "Acesso não autorizado";
-                return RedirectToAction("Index", "Login");
-            }
+
+            return View(usuarioModel);
+            
+        }       
+
+        protected override void Dispose(bool disposing)
+        {         
+            base.Dispose(disposing);
         }
 
-        public ActionResult Cadastrar()
-        {
-            Session["Erro"] = string.Empty;
-            return RedirectToAction("Index", "Cadastro");
-        }
 
     }
 
 
-   
+
 
 
 }

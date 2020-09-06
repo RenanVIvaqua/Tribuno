@@ -7,6 +7,7 @@ using Tribuno3.Camadas.DTO;
 using Tribuno3.Camadas.BLL;
 using Tribuno3.Camadas.DAL;
 using Tribuno3.Models;
+using System.Security.Claims;
 
 namespace Tribuno3.Controllers
 {
@@ -14,44 +15,26 @@ namespace Tribuno3.Controllers
     {
         UsuarioBLL BLL = new UsuarioBLL();
         UsuarioDTO DTO = new UsuarioDTO();
-        AcessoDados acesso = new AcessoDados();       
+        AcessoDados acesso = new AcessoDados();
 
-        private string MsgCriticaErro 
-        {
-            get
-            {
-                var critica  = Session["MsgCriticaErro"];
-
-                if (critica != null && critica.GetType() == typeof(string))
-                    return (string)critica;
-                else
-                    return string.Empty;
-            }
-            set
-            {
-                Session["MsgCriticaErro"] = value;
-            }
-        }
         public ActionResult Index()
-        {           
-            ViewBag.ErroCadastro = MsgCriticaErro;
-            
-            return PartialView();
-        }
-        [HttpPost]
-        public ActionResult Cadastro(UsuarioCadastro usuarioCadastro)
         {
-            Session["Evento_Cadastro"] = null;
-                     
+            return View();
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult Index([Bind(Include = "NomeUsuario,LoginUsuario,SenhaUsuario,Email")] UsuarioCadastro usuarioCadastro)
+        {          
+
             if (!this.ModelState.IsValid)
             {
                 List<string> erros = (from item in ModelState.Values
                                       from error in item.Errors
                                       select error.ErrorMessage).ToList();
                 Response.StatusCode = 400;
-
-                MsgCriticaErro = string.Join(Environment.NewLine, erros);                 
-                return RedirectToAction("Index", "Cadastro");
+                                
+                return View(usuarioCadastro);
             }
 
             UsuarioBLL usuarioBLL = new UsuarioBLL();
@@ -59,13 +42,30 @@ namespace Tribuno3.Controllers
             if (!usuarioBLL.ValidarLoginUsuarioExistente(usuarioCadastro.LoginUsuario))
             {
                 BLL.Inserir(usuarioCadastro);
-                MsgCriticaErro = "Casdastro criado com sucesso, Seja Bem Vindo !";
-                return RedirectToAction("Index", "Cadastro");
+
+                var usuarioNovo = BLL.ConsultarUsuario(usuarioCadastro.LoginUsuario, usuarioCadastro.SenhaUsuario);
+
+                if (usuarioNovo.Id_Usuario != null)
+                {
+                    var identity = new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.Name, usuarioNovo.NomeUsuario),
+                    new Claim("Login", usuarioNovo.LoginUsuario),
+                    new Claim("ID", usuarioNovo.Id_Usuario.ToString())
+                }, "ApplicationCookie");
+
+                    Request.GetOwinContext().Authentication.SignIn(identity);
+
+                    Session["Id_Usuario"] = usuarioNovo.Id_Usuario.ToString();
+                    return RedirectToAction("Index", "Principal");
+                }
+
+                return View(usuarioCadastro);
             }
             else
             {
-                MsgCriticaErro = "Esse Login já existe, tente outro.";
-                return RedirectToAction("Index", "Cadastro");
+                ViewBag.ErroCadastro = "Esse Login já está sendo utilizado, tente outro.";
+                return View(usuarioCadastro);
             }
         }
 

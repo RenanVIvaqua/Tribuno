@@ -22,6 +22,16 @@ function ProximoMes() {
     });
 }
 
+function FiltrarParcelasGrid(pTipoGrid, pTipoFiltro)
+{
+    var data = new Object();
+    data.TipoGrid = pTipoGrid;
+    data.Filtro = pTipoFiltro;
+
+    AcionarAction('Principal', 'FiltrarParcelasGrid', 'POST', data, null, true)
+   
+}
+
 function AtualizarInformativos() {
     $.ajax({
         url: "/Principal/_Informativos",
@@ -46,13 +56,11 @@ function AnteriorMes() {
     })
 };
 
-function AddOperacao(pTipoOperacao) {
-    var data = new Object();
-    data.TipoOperacao = pTipoOperacao;
-
-    AcionarAction('Passivo', 'DefinirTipoOperacao', 'POST', data, null, true)
+function AddOperacao(pTipoOperacao) {       
+    TipoOperacao = pTipoOperacao;
     abreModal(null);
 };
+
 
 
 

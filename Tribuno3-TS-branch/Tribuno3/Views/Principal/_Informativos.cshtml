@@ -2,14 +2,14 @@
 <html>
 <head>
     <script src="~/Scripts/ScriptTribuno/Informativos.js"></script>
-    <script src="~/Scripts/ScriptTribuno/ListarDivida.js"></script>
+    <script src="~/Scripts/ScriptTribuno/GridOperacao.js"></script>
 </head>
 
 <body>
     <div id="Informativo">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-offset-0 text-center">
+                <div class="text-center">
                     <h2 id="mes_Referente">@ViewData.Model.Mes_ref</h2>
                 </div>
             </div>
@@ -23,48 +23,52 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-3 text-center">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Rendimento</h3>                            
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-primary text-white mb-4">
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white">Rendimento</a>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
-                        <div class="panel-body">
-                            <label id="AddRendimento"><a onclick="AddOperacao('Rendimento')" style="cursor:pointer">+ Adicionar Rendimento</a></label>      
+                        <div class="card-body text-center">
+                            <label id="AddRendimento"><a onclick="AddOperacao('Rendimento')" style="cursor:pointer">+ Adicionar Rendimento</a></label>
                             <h3 id="Label_Valor">R$@Convert.ToDouble(ViewData.Model.Rendimento).ToString(@"#,###.##")</h3>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-sm-3 text-center">
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Despesa</h3>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-danger text-white mb-4">
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white">Despesa</a>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body text-center">
                             <label id="AddRendimento"><a onclick="AddOperacao('Passivo')" style="cursor:pointer">+ Adicionar Despesa</a></label>
                             <h3 id="Label_Valor">R$@Convert.ToDouble(ViewData.Model.Despesa).ToString(@"#,###.##")</h3>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-sm-3 text-center">
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Lucro</h3>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-success text-white mb-4">
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white">Lucro</a>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body text-center">
                             <br>
                             <h3 id="Label_Valor">R$@Convert.ToDouble(ViewData.Model.Receita).ToString(@"#,###.##")</h3>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-sm-3 text-center">
-                    <div class="panel panel-warning">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">%Lucro</h3>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-warning text-white mb-4">
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white">Lucro</a>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body text-center">
                             <br>
                             <h3 id="Label_Valor">%@Convert.ToDouble(ViewData.Model.Lucro).ToString(@"#.##")</h3>
                         </div>

@@ -1,15 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SSDTUnitTestPath Condition="'$(SSDTUnitTestPath)' == ''">$(VsInstallRoot)\Common7\IDE\Extensions\Microsoft\SQLDB</SSDTUnitTestPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SSDTPath Condition="'$(SSDTPath)' == ''">$(VsInstallRoot)\Common7\IDE\Extensions\Microsoft\SQLDB\DAC\130</SSDTPath>
+  </PropertyGroup>
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
-    <ItemGroup>
-      <RoslynFiles Include="$(CscToolPath)\*" />
-    </ItemGroup>
-    <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
-    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
-  </Target>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -149,32 +148,30 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Camadas\BLL\GraficoBLL.cs" />
+    <Compile Include="Camadas\BLL\OperacaoBLL.cs" />
+    <Compile Include="Camadas\BLL\ResumoFinanceiroBLL.cs" />
     <Compile Include="Camadas\BLL\UsuarioBLL.cs" />
-    <Compile Include="Camadas\BLL\PassivosBLL.cs" />
-    <Compile Include="Camadas\BLL\PrincipalBLL.cs" />
-    <Compile Include="Camadas\BLL\RendimentoBLL.cs" />
+    <Compile Include="Camadas\BLL\Util.cs" />
     <Compile Include="Camadas\DAL\BancoAcesso.cs" />
     <Compile Include="Camadas\DAL\InterfaceBanco.cs" />
-    <Compile Include="Camadas\DAL\PassivosDAL.cs" />
-    <Compile Include="Camadas\DAL\RendimentoDAL.cs" />
+    <Compile Include="Camadas\DAL\OperacaoDAL.cs" />
+    <Compile Include="Camadas\DAL\ResumoFinanceiroDAL.cs" />
     <Compile Include="Camadas\DAL\UsuarioDAL.cs" />
-    <Compile Include="Camadas\DTO\Operacao.cs" />
-    <Compile Include="Camadas\DTO\PassivoParcelasDTO.cs" />
-    <Compile Include="Camadas\DTO\PassivosDTO.cs" />
+    <Compile Include="Camadas\DTO\GraficoDeAreaDTO.cs" />
+    <Compile Include="Camadas\DTO\OperacaoDTO.cs" />
+    <Compile Include="Camadas\DTO\OperacaoParcelasDTO.cs" />
     <Compile Include="Camadas\DTO\ReceitaDTO.cs" />
-    <Compile Include="Camadas\DTO\RendimentoDTO.cs" />
     <Compile Include="Camadas\DTO\UsuarioDTO.cs" />
-    <Compile Include="Controllers\AtivosController.cs" />
     <Compile Include="Controllers\CadastroController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\PassivoController.cs" />
+    <Compile Include="Controllers\OperacaoController.cs" />
     <Compile Include="Controllers\PrincipalController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\FIltroModel.cs" />
     <Compile Include="Models\OperacaoModel.cs" />
-    <Compile Include="Models\Grafico.cs" />
-    <Compile Include="Models\Passivos.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Processos\Processos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1825,6 +1822,11 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="CSS\BarraNavegacao.css" />
+    <Content Include="CSS\Login\bootstrap.min.css" />
+    <Content Include="CSS\Login\css.css" />
+    <Content Include="CSS\Login\login.css" />
+    <Content Include="CSS\Login\materialdesignicons.min.css" />
+    <Content Include="CSS\Principal\styles.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\bootstrap-theme.css.map" />
@@ -1882,12 +1884,28 @@
     <Content Include="Content\Styles\Dash\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\Styles\Dash\vendor\jquery\jquery.min.map" />
     <Content Include="Content\Styles\Dash\vendor\jquery\jquery.slim.min.map" />
+    <Content Include="CSS\Login\login.scss" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <Content Include="Imagem\Loading.gif" />
+    <Content Include="Imagem\Login\Cadastro.jpg" />
+    <Content Include="Imagem\Login\login.jpg" />
+    <Content Include="Imagem\Login\logo.svg" />
     <Content Include="Imagem\Logo.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\cldr.js" />
+    <Content Include="Scripts\cldr\event.js" />
+    <Content Include="Scripts\cldr\supplemental.js" />
+    <Content Include="Scripts\cldr\unresolved.js" />
+    <Content Include="Scripts\globalize.js" />
+    <Content Include="Scripts\globalize\currency.js" />
+    <Content Include="Scripts\globalize\date.js" />
+    <Content Include="Scripts\globalize\message.js" />
+    <Content Include="Scripts\globalize\number.js" />
+    <Content Include="Scripts\globalize\plural.js" />
+    <Content Include="Scripts\globalize\relative-time.js" />
+    <Content Include="Scripts\globalize\unit.js" />
     <Content Include="Scripts\Highcharts-4.0.1\js\adapters\standalone-framework.js" />
     <Content Include="Scripts\Highcharts-4.0.1\js\adapters\standalone-framework.src.js" />
     <Content Include="Scripts\Highcharts-4.0.1\js\highcharts-3d.js" />
@@ -1931,6 +1949,8 @@
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.dateFormat-1.0.js" />
     <Content Include="Scripts\jquery-mask-min.js" />
+    <Content Include="Scripts\jquery.validate.globalize.js" />
+    <Content Include="Scripts\jquery.validate.globalize.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -2046,10 +2066,24 @@
     <Content Include="Scripts\jtable\themes\metro\red\jtable.min.css" />
     <Content Include="Scripts\jtable\themes\metro\red\loading.gif" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <EmbeddedResource Include="Scripts\SQL\Tabelas\Create Table Solution.sql" />
     <Content Include="Scripts\ScriptTribuno\Informativos.js" />
-    <Content Include="Scripts\ScriptTribuno\ListarDivida.js" />
+    <Content Include="Scripts\ScriptTribuno\GridOperacao.js" />
+    <Content Include="Scripts\ScriptTribuno\Login\gulpfile.js" />
+    <Content Include="Scripts\ScriptTribuno\Login\Principal\scripts.js" />
+    <Content Include="Scripts\ScriptTribuno\Mascara.js" />
     <Content Include="Scripts\ScriptTribuno\OperacaoModal.js" />
     <Content Include="Scripts\ScriptTribuno\Site.js" />
+    <Content Include="Scripts\ScriptTribuno\validacao_ptbr.js" />
+    <Content Include="Scripts\SQL\Procedures\Prc_Grafico_Configuracao_Mes.sql" />
+    <Content Include="Scripts\SQL\Procedures\Prc_Resumo_Financeiro_Mes.sql" />
+    <Content Include="Scripts\SQL\Procedures\Prc_Listar_Operacao.sql" />
+    <Content Include="Scripts\SQL\Procedures\Prc_Consultar_Listar_Operacao.sql" />
+    <Content Include="Scripts\SQL\Procedures\Prc_Alterar_Operacao.sql" />
+    <Content Include="Scripts\SQL\Procedures\Prc_Consultar_Operacao.sql" />
+    <Content Include="Scripts\SQL\Procedures\Prc_Deletar_Operacao.sql" />
+    <Content Include="Scripts\SQL\Procedures\Prc_Inserir_Operacao.sql" />
+    <Content Include="Scripts\SQL\Procedures\Prc_Inserir_Parcelas_Operacao.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2062,14 +2096,10 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Cadastro\Index.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Principal\Index.cshtml" />
-    <Content Include="Views\Ativos\Index.cshtml" />
     <Content Include="Views\Principal\_Grafico.cshtml" />
     <Content Include="Views\Principal\_Grd_Divida.cshtml" />
     <Content Include="Views\Principal\_Grd_Rendimento.cshtml" />
-    <Content Include="Views\Principal\_Grd_Divida_Total.cshtml" />
-    <Content Include="Views\Principal\_Grd_Divida_Detalhe.cshtml" />
     <Content Include="Views\Principal\_Informativos.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
@@ -2093,7 +2123,8 @@
     <Content Include="Scripts\jtable\themes\jtable_theme_base.less" />
     <Content Include="Scripts\jtable\themes\jqueryui\jtable_jqueryui.less" />
     <Content Include="Scripts\jtable\themes\basic\jtable_basic.less" />
-    <Content Include="Views\Principal\_PassivoModal.cshtml" />
+    <Content Include="Views\Principal\_OperacaoModal.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2105,6 +2136,21 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup Condition="$(VisualStudioVersion) == '15.0'">
+    <Reference Include="Microsoft.Data.Tools.Schema.Sql, Version=13.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SSDTPath)\Microsoft.Data.Tools.Schema.Sql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Tools.Schema.Sql.UnitTesting, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SSDTUnitTestPath)\Microsoft.Data.Tools.Schema.Sql.UnitTesting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SSDTUnitTestPath)\Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -2141,6 +2187,11 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
+  <PropertyGroup>
+    <SsdtUnitTestVersion>3.1</SsdtUnitTestVersion>
+  </PropertyGroup>
+  <Import Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.Sql.UnitTesting.targets" Condition="$(VisualStudioVersion) != '15.0' And '$(SQLDBExtensionsRefPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.Sql.UnitTesting.targets" Condition="$(VisualStudioVersion) != '15.0' And '$(SQLDBExtensionsRefPath)' == ''" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

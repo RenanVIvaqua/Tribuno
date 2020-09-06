@@ -1,9 +1,7 @@
-﻿var pIdPassivoAlteracao = 0;
-var pIdRendimentoAlteracao = 0;
-var pTipoOperacao = '';
+﻿var pIdOperacao = 0;
 
 $(document).ready(function () {
-        
+
     $('#GridParcelas').jtable({
         title: 'Parcelas',
         paging: true, //Enable paging 
@@ -22,7 +20,7 @@ $(document).ready(function () {
                 title: 'Valor',
                 width: '20%',
                 display: function (data) {
-                    return '<h7>' + FormatarValorMoeda(data.record.Valor_Parcela)+'</h7>';
+                    return '<h7>' + FormatarValorMoeda(data.record.Valor_Parcela) + '</h7>';
                 }
             },
             DataVencimentoParcela: {
@@ -37,13 +35,44 @@ $(document).ready(function () {
     $('#GridParcelas').jtable('load');
 
     $("#btCalcular").click(function (e) {
+        
+        var OperacaoModel = CriarObjetoOperacao();           
 
-        var obj = ConvertFormToJSON('#formPassivo');
-
-        AcionarActionCalcular('Passivo', 'CalcularParcelas', 'POST', obj, null);
+        AcionarActionCalcular('Operacao', 'CalcularParcelas', 'POST', OperacaoModel, null);
 
         AtualizarGridParcelas();
     });
+    /*
+    $("#btGravar").click(function (e) {
+        var obj = ConvertFormToJSON('#formPassivo');
+        obj.TipoOperacao = TipoOperacao;
+
+        var OperacaoModel = CriarObjetoOperacao();
+       
+        AcionarAction('Operacao', 'GravarParcelas', 'POST', OperacaoModel, 'Operação gravado com sucesso !', true);
+
+        AtualizarGrid();
+        AtualizarGrafico();
+        AtualizarInformativos();
+        PreencheCamposModalPassivo(null);
+
+    });
+    */
+    function CriarObjetoOperacao()
+    {
+        var Operacao = new Object();
+        Operacao.IdOperacao = pIdOperacao;
+        Operacao.NomeOperacao = $('#NomeOperacao').val();
+        Operacao.Descricao = $('#Descricao').val();
+        var radioTipoCalculo = $("input[name='TipodeCalculo']:checked").val();
+        Operacao.TipodeCalculo = "Parcela";       
+        Operacao.QtdParcela = $('#QtdParcela').val();
+        Operacao.ValorParcela = $('#ValorParcela').val();
+        Operacao.DataOperacao = $('#DataOperacao').val();
+        Operacao.TipoOperacao = TipoOperacao;
+    
+        return Operacao;
+    }
 
     function FormatarValorMoeda(pValor) {
         var valor = pValor.toFixed(2).replace('.', ',');
@@ -67,47 +96,10 @@ $(document).ready(function () {
             async: false,
             datatype: "json",
             success: function (data) {
-                $("#MsgCritica").text(data);        
+                $("#MsgCritica").text(data);
             }
         });
-    }
-
-    $("#btGravar").click(function (e) {
-        var obj = ConvertFormToJSON('#formPassivo');
-        if (pTipoOperacao == 'Passivo') {
-            if (pIdPassivoAlteracao > 0)
-                obj.IdOperacao = pIdPassivoAlteracao;
-        }
-        else if (pTipoOperacao == 'Rendimento') {
-            if (pIdRendimentoAlteracao > 0)
-                obj.IdOperacao = pIdRendimentoAlteracao;
-        }
-
-        AcionarAction('Passivo', 'GravarParcelas', 'POST', obj, 'Operação gravado com sucesso !', true);
-
-        AtualizarGrid();
-        AtualizarGrafico();
-        AtualizarInformativos();
-        PreencheCamposModalPassivo(null);
-       
-    });
-
-    function abreModal(data) {
-
-        var date = data.Result.DataVencimento;
-        var convertidaDate = new Date(parseInt(date.substr(6)));
-        var dataFormatada = $.format.date(convertidaDate, "dd/MM/yyyy")
-
-        $("#NomeOperacaoPassivo").val(data.Result.NomeOperacao);
-        $("#ValorParcelaPassivo").val(data.Result.ValorParcela);
-        $("#QtdParcelaPassivo").val(data.Result.QtdParcela);
-        $("#DataOperacaoPassivo").val(dataFormatada);
-        $("#DescricaoPassivo").val(data.Result.Descriacao);
-
-        $("#modal-divida").modal({
-            show: true
-        });
-    }
+    }  
 
     function AtualizarGridParcelas() {
         $.ajax({
