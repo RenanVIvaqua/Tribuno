@@ -199,9 +199,16 @@ namespace Tribuno3.Controllers
             return PartialView();
         }
 
+
         public ActionResult _OperacaoModal()
         {
             return PartialView();
+        }
+
+        [HttpPost]
+        public PartialViewResult _OperacaoModal(OperacaoModel operacaoModel)
+        {
+            return PartialView(operacaoModel);
         }
 
         public ActionResult _Grd_Divida()

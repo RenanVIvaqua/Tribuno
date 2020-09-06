@@ -12,97 +12,70 @@
         <div class="modal-dialog">
             <div class="container-fluid">
                 <div class="modal-content">
-                    <div class="modal-header text-right">
-
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <h4>Adicionar uma Nova Operação</h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 text-right">
-                                <button class="btn-xs btn-danger" data-dismiss="modal">X</button>
-                            </div>
-                        </div>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="TituloModalCentralizado2">Cadastro de operação</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="modal-body">
-                        @using (Html.BeginForm(controllerName:"Operacao",actionName:"GravarParcelas"))
+                    <div class="modal-body text-left">
+
+                        @using (Html.BeginForm(controllerName: "Operacao", actionName: "GravarParcelas", method: FormMethod.Post))
                         {
                             //@Html.AntiForgeryToken()
 
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.NomeOperacao, htmlAttributes: new { @class = "sr-only" })
-                                        @Html.EditorFor(model => model.NomeOperacao, new { htmlAttributes = new { @class = "form-control", placeholder = "Nome da operação" } })
-                                        @Html.ValidationMessageFor(model => model.NomeOperacao, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="form-group col-md-06">
-                                        @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "sr-only" })
-                                        @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control", placeholder = "Descrição" } })
-                                        @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
+                            <input data-val="true" data-val-required="O campo TipoOperacao é obrigatório." id="TipoOperacao" name="TipoOperacao" type="hidden">
+
+                            <input data-val="true" data-val-required="O campo TipodeCalculo é obrigatório." id="TipodeCalculo" name="TipodeCalculo" type="hidden">
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NomeOperacao, htmlAttributes: new { @class = "sr-only" })
+                                @Html.EditorFor(model => model.NomeOperacao, new { htmlAttributes = new { @class = "form-control", placeholder = "Nome da operação" } })
+                                @Html.ValidationMessageFor(model => model.NomeOperacao, "", new { @class = "text-danger" })
                             </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "sr-only" })
+                                @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control", placeholder = "Descrição" } })
+                                @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+                            </div>
+
                             <br>
-                            <div class="panel panel-default">
-                                <div class="panel-heading ">
-                                    <h4 class="panel-title">Tipo de Cálculo de Parcela</h4>
-                                </div>
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Parcelas</label>
-                                        @Html.RadioButtonFor(model => model.TipodeCalculo, new { htmlAttributes = new { name = "TipodeCalculo", value = "Parcela" } })
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Operação</label>
-                                        @Html.RadioButtonFor(model => model.TipodeCalculo, new { htmlAttributes = new { name = "TipodeCalculo", value = "Operacao" } })
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row col-md-6">
-                                    <div class="form-group ">
-                                        @Html.LabelFor(model => model.QtdParcela, htmlAttributes: new { })
-                                        @Html.EditorFor(model => model.QtdParcela, new { htmlAttributes = new { @class = "form-control", placeholder = "Qtd. de Parcela" } })
-                                        @Html.ValidationMessageFor(model => model.QtdParcela, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="row col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.ValorParcela, htmlAttributes: new {})
-                                        @Html.EditorFor(model => model.ValorParcela, new { htmlAttributes = new { @class = "form-control", data_tipo = "moeda", placeholder = "Valor da parcela" } })
-                                        @Html.ValidationMessageFor(model => model.ValorParcela, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="row col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.DataOperacao)
-                                        @Html.EditorFor(model => model.DataOperacao, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.DataOperacao, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.QtdParcela, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.QtdParcela, new { htmlAttributes = new { @class = "form-control", placeholder = "" } })
+                                @Html.ValidationMessageFor(model => model.QtdParcela, "", new { @class = "text-danger" })
+                            </div>
 
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ValorParcela, htmlAttributes: new { })
+                                @Html.EditorFor(model => model.ValorParcela, new { htmlAttributes = new { @class = "form-control", data_tipo = "moeda", placeholder = "" } })
+                                @Html.ValidationMessageFor(model => model.ValorParcela, "", new { @class = "text-danger" })
+                            </div>
 
-                                <div class="row ">
-                                    <div class="col-md-8 text-left">
-                                        <h6 id="MsgCritica"></h6>
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DataOperacao)
+                                @Html.EditorFor(model => model.DataOperacao, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.DataOperacao, "", new { @class = "text-danger" })
+                            </div>
 
-                                <div class="row col-md-4">
-                                    <div class="">
-                                        <input type="button" class="btn btn-info" value="Gerar Parcelas" id="btCalcular">
-                                    </div>
-                                </div>
-
-                                <br>
-                                <table id="GridParcelas" class="table"></table>
-                                <div class="form-group">
-                                    <input type="submit" class="btn btn-info" value="Gravar" id="btGravar">
+                            <div class="row ">
+                                <div class="col-md-8 text-left">
+                                    <h6 id="MsgCritica"></h6>
                                 </div>
                             </div>
 
+                            <div class="row col-md-4">
+                                <div class="">
+                                    <input type="button" class="btn btn-info" value="Gerar Parcelas" id="btCalcular">
+                                </div>
+                            </div>
+
+                            <br>
+                            <table id="GridParcelas" class="table"></table>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-info" value="Gravar" id="btGravar">
+                            </div>
                         }
                     </div>
                 </div>

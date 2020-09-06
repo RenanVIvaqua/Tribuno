@@ -88,9 +88,9 @@ namespace Tribuno3.Camadas.DAL
             pParam.Add("ValorParcela", pOperacao.ValorParcela.ToString());
             pParam.Add("QtdParcela", pOperacao.QtdParcela.ToString());
             pParam.Add("Descricao", pOperacao.Descricao = pOperacao.Descricao!= null ? pOperacao.Descricao.ToString() : string.Empty);
-            pParam.Add("DataCadastro", DateTime.Now.ToString("M/d/yyyyHH:mm:ss"));
+            pParam.Add("DataCadastro", DateTime.Now.ToString());
             pParam.Add("TipoOperacao", Convert.ToString((int)pOperacao.TipoOperacao));
-            pParam.Add("TipoCalculo", Convert.ToString((int)pOperacao.TipoCalculo));
+            pParam.Add("TipoCalculo", "2");
 
             return Acesso.Executar(Processos.Executar.Inserir_Operacao, Util.ParametroSql(pParam));
         }
@@ -166,7 +166,7 @@ namespace Tribuno3.Camadas.DAL
             pParam.Add("ValorParcela", pOperacao.ValorParcela.ToString());
             pParam.Add("QtdParcela", pOperacao.QtdParcela.ToString());           
             pParam.Add("Descricao", pOperacao.Descricao.ToString());
-            pParam.Add("DataAlteracao", pOperacao.DataAlteracao.ToString("M/d/yyyy HH:mm:ss"));
+            pParam.Add("DataAlteracao", pOperacao.DataAlteracao.ToString());
             pParam.Add("TipoOperacao", pOperacao.TipoOperacao.ToString());
             pParam.Add("TipoCalculo", pOperacao.TipoCalculo.ToString());
 
@@ -188,7 +188,7 @@ namespace Tribuno3.Camadas.DAL
                 pParam.Add("IdOperacao", pIdDivida.ToString());
                 pParam.Add("NumeroParcela", item.Numero_Parcela.ToString());
                 pParam.Add("Valor_Parcela", item.Valor_Parcela.ToString());
-                pParam.Add("DataVencimento", item.DataVencimentoParcela.ToString("M/d/yyyy HH:mm:ss"));
+                pParam.Add("DataVencimento", item.DataVencimentoParcela.ToString());
                 pParam.Add("StatusParcela", Convert.ToString((int)item.Status));
 
                 Acesso.Executar(Processos.Executar.Inserir_Operacao_Parcela, Util.ParametroSql(pParam));

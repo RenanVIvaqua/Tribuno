@@ -35,8 +35,11 @@ $(document).ready(function () {
     $('#GridParcelas').jtable('load');
 
     $("#btCalcular").click(function (e) {
+
+        $("#TipoOperacao").attr("value", TipoOperacao);
+        alert(TipoOperacao);                
+        var OperacaoModel = CriarObjetoOperacao(); 
         
-        var OperacaoModel = CriarObjetoOperacao();           
 
         AcionarActionCalcular('Operacao', 'CalcularParcelas', 'POST', OperacaoModel, null);
 

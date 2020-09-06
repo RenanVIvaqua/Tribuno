@@ -95,22 +95,34 @@ namespace Tribuno3.Controllers
             return mensagemCritica;
         }
 
-        public void GravarParcelas(OperacaoModel operacao)
-        {          
-            if (operacao.IdOperacao > 0)
-                operacaoBLL.DeletarOperacao(operacao.IdOperacao);
-
-            string identity_Inserido;
-            if (ListaParcelas.Count > 0)
+        public ActionResult GravarParcelas(OperacaoModel operacao)
+        {
+            try
             {
-                OperacaoDTO objOperacao = operacaoBLL.ConvertModeltoObj(operacao);
+                if (operacao.IdOperacao > 0)
+                    operacaoBLL.DeletarOperacao(operacao.IdOperacao);
 
-                objOperacao.ValorOperacao = ListaParcelas.Sum(x => x.Valor_Parcela);
-                identity_Inserido = operacaoBLL.InserirOperacao(objOperacao);
+                string identity_Inserido;
+                if (ListaParcelas.Count > 0)
+                {
+                    OperacaoDTO objOperacao = operacaoBLL.ConvertModeltoObj(operacao);
 
-                if (int.TryParse(identity_Inserido, out int identityInserido))
-                    operacaoBLL.InserirParcela(ListaParcelas, identityInserido);
+                    objOperacao.ValorOperacao = ListaParcelas.Sum(x => x.Valor_Parcela);
+                    identity_Inserido = operacaoBLL.InserirOperacao(objOperacao);
+
+                    if (int.TryParse(identity_Inserido, out int identityInserido))
+                        operacaoBLL.InserirParcela(ListaParcelas, identityInserido);
+                }
+                //Implementar Modal de sucesso
+                return RedirectToAction(controllerName:"Principal",actionName:"Index");
             }
+            catch 
+            {
+                //Implementar Modal de Erro
+                return RedirectToAction(controllerName:"Principal", actionName:"Index");
+            }
+
+            
         }
 
         public void DeletarOperacao(OperacaolModal pOperModal)
