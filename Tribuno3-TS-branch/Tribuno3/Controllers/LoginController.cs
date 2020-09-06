@@ -23,7 +23,7 @@ namespace Tribuno3.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public ActionResult Index([Bind(Include = "LoginUsuario,SenhaUsuario")] UsuarioModel usuarioModel)
         { 
             if (!this.ModelState.IsValid)
@@ -33,8 +33,7 @@ namespace Tribuno3.Controllers
                                       select error.ErrorMessage).ToList();
                 Response.StatusCode = 400;
                 
-                Session["Erro"] = string.Join(Environment.NewLine, erros);
-
+             
                 return View(usuarioModel);
             }
 
@@ -54,6 +53,8 @@ namespace Tribuno3.Controllers
                 Session["Id_Usuario"] = DTO.Id_Usuario.ToString();
                 return RedirectToAction("Index", "Principal");
             }
+
+            ViewBag.critica  = "Login ou senha incorreto";
 
             return View(usuarioModel);
             
