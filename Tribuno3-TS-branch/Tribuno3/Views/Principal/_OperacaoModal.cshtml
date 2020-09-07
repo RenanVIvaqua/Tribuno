@@ -20,13 +20,13 @@
                     </div>
                     <div class="modal-body text-left">
 
-                        @using (Html.BeginForm(controllerName: "Operacao", actionName: "GravarParcelas", method: FormMethod.Post, htmlAttributes: new { id = "formOperacao" } ))
+                        @using (Html.BeginForm(controllerName: "Operacao", actionName: "GravarParcelas", method: FormMethod.Post, htmlAttributes: new { id = "formOperacao" }))
                         {
                             //@Html.AntiForgeryToken()
 
-                            <input data-val="true" data-val-required="O campo TipoOperacao é obrigatório." id="TipoOperacao" name="TipoOperacao" type="hidden">
-
-                            <input data-val="true" data-val-required="O campo TipodeCalculo é obrigatório." id="TipodeCalculo" name="TipodeCalculo" type="hidden">
+                            @Html.EditorFor(model => model.TipoOperacao, new { htmlAttributes = new { type = "hidden" } })
+                            @Html.EditorFor(model => model.TipodeCalculo, new { htmlAttributes = new { type = "hidden" } })
+                            @Html.EditorFor(model => model.IdOperacao, new { htmlAttributes = new { type = "hidden" } })
 
                             <div class="form-group">
                                 @Html.LabelFor(model => model.NomeOperacao, htmlAttributes: new { @class = "sr-only" })

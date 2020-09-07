@@ -157,6 +157,9 @@ function AlterarOperacao(pIdOper,pTipoOperacao)
     TipoOperacao = pTipoOperacao;     
     pIdOperacao = pIdOper;       
 
+    $("#IdOperacao").attr("value", pIdOper);   
+    $("#TipoOperacao").attr("value", pTipoOperacao);  
+    
     $.ajax({
         url: urlConsultarOperacao,
         type: "POST",
