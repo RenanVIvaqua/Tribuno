@@ -30,10 +30,21 @@ $(document).ready(function () {
                 displayFormat: 'dd-mm-yy'
             }
         }
-    });
+    });    
 
     $('#GridParcelas').jtable('load');
 
+    function GerarParcelas() {
+
+        $("#TipoOperacao").attr("value", TipoOperacao);
+        var OperacaoModel = CriarObjetoOperacao();
+
+        AcionarActionCalcular('Operacao', 'CalcularParcelas', 'POST', OperacaoModel, null);
+
+        AtualizarGridParcelas();
+
+    }
+    /*
     $("#btCalcular").click(function (e) {
 
         $("#TipoOperacao").attr("value", TipoOperacao);               
@@ -43,7 +54,7 @@ $(document).ready(function () {
         AcionarActionCalcular('Operacao', 'CalcularParcelas', 'POST', OperacaoModel, null);
 
         AtualizarGridParcelas();
-    });
+    });*/
     /*
     $("#btGravar").click(function (e) {
         var obj = ConvertFormToJSON('#formPassivo');
@@ -114,7 +125,7 @@ $(document).ready(function () {
             }
         });
     }
-
+        
     function ConvertFormToJSON(form) {
         var array = jQuery(form).serializeArray();
         var json = {};
@@ -127,4 +138,21 @@ $(document).ready(function () {
         return json;
     }
 
+    $(".parcelas").change(function () {
+
+
+        if ($('#QtdParcela').val() != "" && $('#QtdParcela').val() != "" && $('#DataOperacao').val() != "") {
+
+            GerarParcelas();
+
+            $('#btGravar').attr('disabled', false);
+
+        }
+        else {
+            $('#btGravar').attr('disabled', true);
+
+        }
+        
+    });
 });
+

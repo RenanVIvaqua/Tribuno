@@ -38,24 +38,22 @@
                                 @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control", placeholder = "Descrição" } })
                                 @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
                             </div>
-
                             <br>
-
                             <div class="form-group">
                                 @Html.LabelFor(model => model.QtdParcela, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.QtdParcela, new { htmlAttributes = new { @class = "form-control", placeholder = "" } })
+                                @Html.EditorFor(model => model.QtdParcela, new { htmlAttributes = new { @class = "form-control parcelas", placeholder = "" } })
                                 @Html.ValidationMessageFor(model => model.QtdParcela, "", new { @class = "text-danger" })
                             </div>
 
                             <div class="form-group">
                                 @Html.LabelFor(model => model.ValorParcela, htmlAttributes: new { })
-                                @Html.EditorFor(model => model.ValorParcela, new { htmlAttributes = new { @class = "form-control", data_tipo = "moeda", placeholder = "" } })
+                                @Html.EditorFor(model => model.ValorParcela, new { htmlAttributes = new { @class = "form-control parcelas", data_tipo = "moeda", placeholder = "" } })
                                 @Html.ValidationMessageFor(model => model.ValorParcela, "", new { @class = "text-danger" })
                             </div>
 
                             <div class="form-group">
                                 @Html.LabelFor(model => model.DataOperacao)
-                                @Html.EditorFor(model => model.DataOperacao, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.DataOperacao, new { htmlAttributes = new { @class = "form-control parcelas"} })
                                 @Html.ValidationMessageFor(model => model.DataOperacao, "", new { @class = "text-danger" })
                             </div>
 
@@ -65,16 +63,10 @@
                                 </div>
                             </div>
 
-                            <div class="row col-md-4">
-                                <div class="">
-                                    <input type="button" class="btn btn-info" value="Gerar Parcelas" id="btCalcular">
-                                </div>
-                            </div>
-
                             <br>
                             <table id="GridParcelas" class="table"></table>
                             <div class="form-group">
-                                <input type="submit" class="btn btn-info" value="Gravar" id="btGravar">
+                                <input type="submit" class="btn btn-info" value="Gravar" disabled="disabled" id="btGravar">
                             </div>
                         }
                     </div>

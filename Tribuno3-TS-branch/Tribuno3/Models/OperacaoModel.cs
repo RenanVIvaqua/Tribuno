@@ -24,6 +24,7 @@ namespace Tribuno3.Models
         
         [Required]
         [Display(Name = "Qtd. de Parcela")]
+        [Range(minimum:0,maximum:60,ErrorMessage = "Valor permitido entre 0 e 60")]
         public int QtdParcela { get; set; }
 
         [Required]
