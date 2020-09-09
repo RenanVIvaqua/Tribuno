@@ -1,7 +1,7 @@
 ﻿var pIdOperacao = 0;
 
 $(document).ready(function () {
-
+    
     $('#GridParcelas').jtable({
         title: 'Parcelas',
         paging: true, //Enable paging 
@@ -30,62 +30,70 @@ $(document).ready(function () {
                 displayFormat: 'dd-mm-yy'
             }
         }
-    });    
+    });
 
     $('#GridParcelas').jtable('load');
 
-    function GerarParcelas() {
-
-        $("#TipoOperacao").attr("value", TipoOperacao);
-        var OperacaoModel = CriarObjetoOperacao();
-
-        AcionarActionCalcular('Operacao', 'CalcularParcelas', 'POST', OperacaoModel, null);
-
-        AtualizarGridParcelas();
-
-    }
-    /*
-    $("#btCalcular").click(function (e) {
-
-        $("#TipoOperacao").attr("value", TipoOperacao);               
-        var OperacaoModel = CriarObjetoOperacao(); 
-        
-
-        AcionarActionCalcular('Operacao', 'CalcularParcelas', 'POST', OperacaoModel, null);
-
-        AtualizarGridParcelas();
-    });*/
-    /*
     $("#btGravar").click(function (e) {
-        var obj = ConvertFormToJSON('#formPassivo');
+
+        var obj = ConvertFormToJSON('#formOperacao');
         obj.TipoOperacao = TipoOperacao;
 
-        var OperacaoModel = CriarObjetoOperacao();
-       
-        AcionarAction('Operacao', 'GravarParcelas', 'POST', OperacaoModel, 'Operação gravado com sucesso !', true);
-
-        AtualizarGrid();
-        AtualizarGrafico();
-        AtualizarInformativos();
-        PreencheCamposModalPassivo(null);
-
+        $.ajax({
+            method: "POST",
+            url: "/Operacao/GravarParcelas",
+            async: false,
+            data: { obj },
+            success: function (data) {
+                AtualizarGrid();
+                AtualizarGrafico();
+                AtualizarInformativos();
+                if (data.success = true)
+                    alert(data.Message);
+                //window.location.href = "/ContasPagar/";
+            },
+            error: function (data) {
+                if (data.success = false)
+                    alert(data.Message);
+            }
+        })
     });
-    */
-    function CriarObjetoOperacao()
-    {
-        var Operacao = new Object();
-        Operacao.IdOperacao = pIdOperacao;
-        Operacao.NomeOperacao = $('#NomeOperacao').val();
-        Operacao.Descricao = $('#Descricao').val();
-        var radioTipoCalculo = $("input[name='TipodeCalculo']:checked").val();
-        Operacao.TipodeCalculo = "Parcela";       
-        Operacao.QtdParcela = $('#QtdParcela').val();
-        Operacao.ValorParcela = $('#ValorParcela').val();
-        Operacao.DataOperacao = $('#DataOperacao').val();
-        Operacao.TipoOperacao = TipoOperacao;
-    
-        return Operacao;
-    }
+
+    $(".parcelas").change(function () {
+
+        if ($('#QtdParcela').val() != "" && $('#QtdParcela').val() != "" && $('#DataOperacao').val() != "") {
+            GerarParcelas();
+            $('#btGravar').attr('disabled', false);
+        }
+        else {
+            $('#btGravar').attr('disabled', true);
+        }
+    });
+
+    function GerarParcelas() {
+
+        var OperacaoModel = ConvertFormToJSON('#formOperacao');     
+        OperacaoModel.TipoOperacao = TipoOperacao;
+       //$("#TipoOperacao").attr("value", TipoOperacao);        
+       
+        $.ajax({
+            method: "POST",
+            url: "/Operacao/CalcularParcelas",
+            async: false,
+            data: OperacaoModel ,
+            success: function (data) {               
+                if (data.success = true) {
+                    AtualizarGridParcelas();                    
+                    $("#MsgCritica").text(data.Message)
+                }                               
+            },
+            error: function (data) {
+                if (data.success = false)
+                    alert(data.Message);
+            }
+        })     
+    }  
+      
 
     function FormatarValorMoeda(pValor) {
         var valor = pValor.toFixed(2).replace('.', ',');
@@ -93,26 +101,6 @@ $(document).ready(function () {
 
         return valorFormatado;
     }
-
-    function AcionarActionCalcular(pController, pAction, TipoVerbo, data, alertSucesso) {
-        if (pController || pAction || TipoVerbo || pSucesso) {
-            var url = "/" + pController + "/" + pAction;
-        }
-        else {
-            return;
-        }
-
-        $.ajax({
-            url: url,
-            type: TipoVerbo,
-            data,
-            async: false,
-            datatype: "json",
-            success: function (data) {
-                $("#MsgCritica").text(data);
-            }
-        });
-    }  
 
     function AtualizarGridParcelas() {
         $.ajax({
@@ -125,7 +113,7 @@ $(document).ready(function () {
             }
         });
     }
-        
+
     function ConvertFormToJSON(form) {
         var array = jQuery(form).serializeArray();
         var json = {};
@@ -138,21 +126,8 @@ $(document).ready(function () {
         return json;
     }
 
-    $(".parcelas").change(function () {
+   
+})
 
 
-        if ($('#QtdParcela').val() != "" && $('#QtdParcela').val() != "" && $('#DataOperacao').val() != "") {
-
-            GerarParcelas();
-
-            $('#btGravar').attr('disabled', false);
-
-        }
-        else {
-            $('#btGravar').attr('disabled', true);
-
-        }
-        
-    });
-});
 

@@ -59,44 +59,43 @@ namespace Tribuno3.Controllers
             return Json(new { Result = "OK", Records = lista, TotalRecordCount = qtdPaginacao });
         }
 
-        public string CalcularParcelas(OperacaoModel operacao)
-        {
-            OperacaoBLL operacaoBLL = new OperacaoBLL();
-
-            string mensagemCritica = string.Empty;
-
+        public ActionResult CalcularParcelas(OperacaoModel operacao)
+        {            
             if (!this.ModelState.IsValid)
+                return PartialView("~/Principal/_OperacaoModal", operacao);
+
+            try
             {
-                List<string> erros = (from item in ModelState.Values
-                                      from error in item.Errors
-                                      select error.ErrorMessage).ToList();
+                OperacaoBLL operacaoBLL = new OperacaoBLL();
+                string mensagemCritica = string.Empty;
 
-                mensagemCritica = string.Join(Environment.NewLine, erros);
+                ListaParcelas = operacaoBLL.GerarParcelas(operacao);
 
-                return mensagemCritica;
+                double total;
+
+                if (operacao.TipodeCalculo == TipodeCalculo.Parcela)
+                {
+                    total = ListaParcelas.Sum(x => x.Valor_Parcela);
+                    var valorFormatado = string.Format(CultureInfo.GetCultureInfo("pt-BR"), "{0:C}", total);
+                    mensagemCritica = "Valor total da Operação " + valorFormatado;
+                }
+
+                var result = new { Success = "True", Message = mensagemCritica };
+
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
-           
-            ListaParcelas = operacaoBLL.GerarParcelas(operacao);
-
-            double total;
-
-            if (operacao.TipodeCalculo == TipodeCalculo.Parcela)
+            catch (Exception erro)
             {
-                total = ListaParcelas.Sum(x => x.Valor_Parcela);
-                var valorFormatado = string.Format(CultureInfo.GetCultureInfo("pt-BR"), "{0:C}", total);
-                mensagemCritica = "Valor total da Operação " + valorFormatado;
-            }
-            else if (operacao.TipodeCalculo == TipodeCalculo.Operacao)
-            {
-                total = ListaParcelas[0].Valor_Parcela;
-                var valorFormatado = string.Format(CultureInfo.GetCultureInfo("pt-BR"), "{0:C}", total);
-                mensagemCritica = "Valor da parcela " + valorFormatado;
-            }
-            return mensagemCritica;
+                var result = new { Success = "False", Message = erro.Message };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }            
         }
 
         public ActionResult GravarParcelas(OperacaoModel operacao)
         {
+            if (!this.ModelState.IsValid)
+                return PartialView("~/Principal/_OperacaoModal", operacao);
+
             try
             {
                 if (operacao.IdOperacao > 0)
@@ -113,16 +112,15 @@ namespace Tribuno3.Controllers
                     if (int.TryParse(identity_Inserido, out int identityInserido))
                         operacaoBLL.InserirParcela(ListaParcelas, identityInserido);
                 }
-                //Implementar Modal de sucesso
-                return RedirectToAction(controllerName:"Principal",actionName:"Index");
-            }
-            catch 
-            {
-                //Implementar Modal de Erro
-                return RedirectToAction(controllerName:"Principal", actionName:"Index");
-            }
 
-            
+                var result = new { Success = "True", Message = "Despesa Excluida." };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception erro)
+            {
+                var result = new { Success = "False", Message = erro.Message };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public void DeletarOperacao(OperacaolModal pOperModal)
@@ -132,12 +130,12 @@ namespace Tribuno3.Controllers
 
         public void CarregarParcelas(OperacaolModal pOperacaoModal)
         {
-            if(pOperacaoModal.Cadastro)
+            if (pOperacaoModal.Cadastro)
                 ListaParcelas = new List<OperacaoParcelasDTO>();
             else
                 ListaParcelas = new OperacaoBLL().ConsultarParcelas(pOperacaoModal.IdOperacao);
         }
-       
+
     }
 }
 
