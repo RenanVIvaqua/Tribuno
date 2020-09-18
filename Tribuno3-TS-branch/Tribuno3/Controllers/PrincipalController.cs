@@ -199,7 +199,7 @@ namespace Tribuno3.Controllers
             return PartialView();
         }
 
-
+    
         public ActionResult _OperacaoModal()
         {
             return PartialView();

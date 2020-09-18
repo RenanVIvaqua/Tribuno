@@ -35,22 +35,21 @@ $(document).ready(function () {
     $('#GridParcelas').jtable('load');
 
     $("#btGravar").click(function (e) {
-
-        var obj = ConvertFormToJSON('#formOperacao');
-        obj.TipoOperacao = TipoOperacao;
+        var OperacaoModel = FormularioEmObjetoOperacao(); 
 
         $.ajax({
             method: "POST",
             url: "/Operacao/GravarParcelas",
             async: false,
-            data: { obj },
+            data: OperacaoModel,
             success: function (data) {
                 AtualizarGrid();
                 AtualizarGrafico();
                 AtualizarInformativos();
-                if (data.success = true)
+                if (data.success = true) {
                     alert(data.Message);
-                //window.location.href = "/ContasPagar/";
+                    window.location.href = "/Principal/";
+                }                 
             },
             error: function (data) {
                 if (data.success = false)
@@ -71,10 +70,8 @@ $(document).ready(function () {
     });
 
     function GerarParcelas() {
-
-        var OperacaoModel = ConvertFormToJSON('#formOperacao');     
-        OperacaoModel.TipoOperacao = TipoOperacao;
-       //$("#TipoOperacao").attr("value", TipoOperacao);        
+        var OperacaoModel = FormularioEmObjetoOperacao();  
+         
        
         $.ajax({
             method: "POST",
@@ -92,8 +89,16 @@ $(document).ready(function () {
                     alert(data.Message);
             }
         })     
-    }  
-      
+    }       
+
+    function FormularioEmObjetoOperacao() {
+
+        var OperacaoModel = ConvertFormToJSON('#formOperacao');     
+        OperacaoModel.TipoOperacao = TipoOperacao;
+        OperacaoModel.IdOperacao = pIdOperacao;
+
+        return OperacaoModel
+    }
 
     function FormatarValorMoeda(pValor) {
         var valor = pValor.toFixed(2).replace('.', ',');
@@ -124,9 +129,7 @@ $(document).ready(function () {
 
         console.log('JSON: ' + json);
         return json;
-    }
-
-   
+    }   
 })
 
 

@@ -23,7 +23,7 @@ namespace Tribuno3.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+      //  [ValidateAntiForgeryToken]
         public ActionResult Index([Bind(Include = "LoginUsuario,SenhaUsuario")] UsuarioModel usuarioModel)
         { 
             if (!this.ModelState.IsValid)

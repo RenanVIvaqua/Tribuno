@@ -1,9 +1,7 @@
 ﻿<html>
 <head>
     <script src="~/Scripts/ScriptTribuno/GridOperacao.js"></script>
-
     <script>
-
         var urlConsultarOperacao = '@Url.Action("ConsultarOperacao", "Principal", new { area = "" })';
         var urlGrafico = '@Url.Action("_Grafico", "Principal", new { area = "" })';
         var urlListRendimento = '@Url.Action("listarRendimento", "Principal", new { area = "" })';
@@ -33,6 +31,7 @@
             </div>
         </main>
 
+        @{Html.RenderAction(actionName: "_PopUpDecisao", controllerName:"PopUpSite");}
     </div>
 </body>
 </html>

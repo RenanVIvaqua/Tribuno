@@ -136,15 +136,22 @@ $(document).ready(function ()
 
 function DeletarOperacao(pIdOperacao,pTipoOperacao)
 {
-    var operacao = new Object();
+    let operacao = new Object();
     operacao.TipoOperacao = pTipoOperacao;
     operacao.IdOperacao = pIdOperacao
     operacao.Cadastro = false;
 
-    AcionarAction('Operacao', 'DeletarOperacao', 'POST', operacao, 'Operação deletado com sucesso', true);
+    abreModalDecisao('Excluir', 'Deseja excluir a operação ?', EfetuarExclusaoOperacao, operacao);         
+}
+
+function EfetuarExclusaoOperacao(pOperacao)
+{   
+    AcionarAction('Operacao', 'DeletarOperacao', 'POST', pOperacao, 'Operação deletado com sucesso', true);    
     AtualizarGrid();
     AtualizarGrafico();
     AtualizarInformativos();
+
+    FecharModalDecisao();
 }
 
 function AlterarOperacao(pIdOper,pTipoOperacao)

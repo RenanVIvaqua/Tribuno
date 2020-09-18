@@ -1,0 +1,35 @@
+﻿<html>
+<head>
+    <script src="~/Scripts/ScriptTribuno/PopUp/PopUpDecisao.js"></script>
+</head>
+<body>
+    <div class="modal" id="modalDecisao">
+        <div class="modal-dialog">
+            <div class="container-fluid">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="TituloModalDecisao"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-offset-6">
+                                <label class="text-center" id="Mensagem"></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group text-center">
+                                <input type="button" class="btn btn-info Decisao" data-decisao="true" value="Sim">
+                                <input type="button" class="btn btn-info Decisao" data-decisao="false" value="Não">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

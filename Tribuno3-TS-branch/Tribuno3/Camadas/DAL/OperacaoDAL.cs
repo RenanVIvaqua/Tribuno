@@ -88,7 +88,7 @@ namespace Tribuno3.Camadas.DAL
             pParam.Add("ValorParcela", pOperacao.ValorParcela.ToString());
             pParam.Add("QtdParcela", pOperacao.QtdParcela.ToString());
             pParam.Add("Descricao", pOperacao.Descricao = pOperacao.Descricao!= null ? pOperacao.Descricao.ToString() : string.Empty);
-            pParam.Add("DataCadastro", DateTime.Now.ToString());
+            pParam.Add("DataCadastro", DateTime.Now.ToString("yyyy/M/d HH:mm:ss"));
             pParam.Add("TipoOperacao", Convert.ToString((int)pOperacao.TipoOperacao));
             pParam.Add("TipoCalculo", "2");
 

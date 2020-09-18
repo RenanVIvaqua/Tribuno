@@ -20,7 +20,7 @@ namespace Tribuno3.Models
         [Display(Name = "Valor da parcela")]
         public decimal ValorParcela { get; set; }
                 
-        public TipodeCalculo TipodeCalculo { get; set; }
+       // public TipodeCalculo TipodeCalculo { get; set; }
         
         [Required]
         [Display(Name = "Qtd. de Parcela")]

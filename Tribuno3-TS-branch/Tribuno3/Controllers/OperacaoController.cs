@@ -60,9 +60,9 @@ namespace Tribuno3.Controllers
         }
 
         public ActionResult CalcularParcelas(OperacaoModel operacao)
-        {            
+        {
             if (!this.ModelState.IsValid)
-                return PartialView("~/Principal/_OperacaoModal", operacao);
+                return RedirectToAction("~/Principal/_OperacaoModal", operacao);
 
             try
             {
@@ -71,14 +71,9 @@ namespace Tribuno3.Controllers
 
                 ListaParcelas = operacaoBLL.GerarParcelas(operacao);
 
-                double total;
-
-                if (operacao.TipodeCalculo == TipodeCalculo.Parcela)
-                {
-                    total = ListaParcelas.Sum(x => x.Valor_Parcela);
-                    var valorFormatado = string.Format(CultureInfo.GetCultureInfo("pt-BR"), "{0:C}", total);
-                    mensagemCritica = "Valor total da Operação " + valorFormatado;
-                }
+                double total = ListaParcelas.Sum(x => x.Valor_Parcela);
+                var valorFormatado = string.Format(CultureInfo.GetCultureInfo("pt-BR"), "{0:C}", total);
+                mensagemCritica = "Valor total da Operação " + valorFormatado;
 
                 var result = new { Success = "True", Message = mensagemCritica };
 
@@ -88,13 +83,13 @@ namespace Tribuno3.Controllers
             {
                 var result = new { Success = "False", Message = erro.Message };
                 return Json(result, JsonRequestBehavior.AllowGet);
-            }            
+            }
         }
 
         public ActionResult GravarParcelas(OperacaoModel operacao)
         {
             if (!this.ModelState.IsValid)
-                return PartialView("~/Principal/_OperacaoModal", operacao);
+                return RedirectToAction("~/Principal/_OperacaoModal", operacao);
 
             try
             {
@@ -113,7 +108,7 @@ namespace Tribuno3.Controllers
                         operacaoBLL.InserirParcela(ListaParcelas, identityInserido);
                 }
 
-                var result = new { Success = "True", Message = "Despesa Excluida." };
+                var result = new { Success = "True", Message = "Operação registrada." };
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
             catch (Exception erro)

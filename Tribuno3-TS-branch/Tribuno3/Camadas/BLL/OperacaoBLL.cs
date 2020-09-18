@@ -83,9 +83,11 @@ namespace Tribuno3.Camadas.BLL
             operacaoDTO.QtdParcela = pModelOperacao.QtdParcela;
             operacaoDTO.ValorParcela = (double)pModelOperacao.ValorParcela;
             operacaoDTO.Descricao = pModelOperacao.Descricao;            
-            operacaoDTO.DataAlteracao = DateTime.Now;
-            operacaoDTO.TipoCalculo = pModelOperacao.TipodeCalculo;
+            operacaoDTO.DataAlteracao = DateTime.Now;           
             operacaoDTO.TipoOperacao = pModelOperacao.TipoOperacao;
+
+            //operacaoDTO.TipoCalculo = pModelOperacao.TipodeCalculo;
+            operacaoDTO.TipoCalculo = TipodeCalculo.Parcela;
 
             return operacaoDTO;
         }
@@ -122,7 +124,10 @@ namespace Tribuno3.Camadas.BLL
                 OperacaoParcelasDTO objParcela = new OperacaoParcelasDTO();
 
                 objParcela.Numero_Parcela = x;
-                decimal valorParcela = pOperacao.TipodeCalculo == TipodeCalculo.Parcela ? (decimal)pOperacao.ValorParcela : (decimal)pOperacao.ValorParcela / pOperacao.QtdParcela;
+                // Sera ajustado no Futuro ! 
+                // decimal valorParcela = pOperacao.TipodeCalculo == TipodeCalculo.Parcela ? (decimal)pOperacao.ValorParcela : (decimal)pOperacao.ValorParcela / pOperacao.QtdParcela;
+                decimal valorParcela = (decimal)pOperacao.ValorParcela;
+
                 objParcela.Valor_Parcela = (double)valorParcela;
                 objParcela.DataVencimentoParcela = x == 1 ? pOperacao.DataOperacao : pOperacao.DataOperacao.AddMonths(x - 1);
                 objParcela.Status = StatusParcela.EmAberto;

@@ -24,10 +24,10 @@
                         {
                             //@Html.AntiForgeryToken()
 
-                            @Html.EditorFor(model => model.TipoOperacao, new { htmlAttributes = new { type = "hidden" } })
-                            @Html.EditorFor(model => model.TipodeCalculo, new { htmlAttributes = new { type = "hidden" } })
-                            @Html.EditorFor(model => model.IdOperacao, new { htmlAttributes = new { type = "hidden" } })
-
+                            @Html.EditorFor(model => model.TipoOperacao, new { htmlAttributes = new { type = "hidden"} })
+                            //@Html.EditorFor(model => model.TipodeCalculo, new { htmlAttributes = new { type = "hidden" } })
+                            @Html.EditorFor(model => model.IdOperacao, new { htmlAttributes = new { type = "hidden"} })
+                            
                             <div class="form-group">
                                 @Html.LabelFor(model => model.NomeOperacao, htmlAttributes: new { @class = "sr-only" })
                                 @Html.EditorFor(model => model.NomeOperacao, new { htmlAttributes = new { @class = "form-control", placeholder = "Nome da operação" } })
