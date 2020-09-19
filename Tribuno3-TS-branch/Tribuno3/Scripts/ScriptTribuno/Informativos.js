@@ -14,6 +14,7 @@ function ProximoMes() {
     $.ajax({
         url: "/Principal/_Informativos",
         type: "POST",
+        async:false,
         data: { 'alterarMes': 1 },
         datatype: "json",
         success: function (data) {
@@ -48,6 +49,7 @@ function AnteriorMes() {
     $.ajax({
         url: "/Principal/_Informativos",
         type: "POST",
+        async:false,
         data: { 'alterarMes': 2 },
         datatype: "json",
         success: function (data) {

@@ -48,15 +48,27 @@ $(document).ready(function () {
                 AtualizarInformativos();
                 if (data.success = true) {
                     alert(data.Message);
-                    window.location.href = "/Principal/";
-                }                 
-            },
-            error: function (data) {
-                if (data.success = false)
+                    abreModalDecisao('Cadastro de Operação', 'Deseja cadastrar uma nova operação ?', NovaOperacao, null, FecharOperacao,null);
+                   
+                }
+                else {
                     alert(data.Message);
-            }
+                }
+            }          
         })
     });
+
+    function NovaOperacao() {
+        FecharModalDecisao();
+
+
+    }
+
+    function FecharOperacao() {
+        FecharModalDecisao();
+        
+    }
+
 
     $(".parcelas").change(function () {
 
@@ -95,16 +107,14 @@ $(document).ready(function () {
 
         var OperacaoModel = ConvertFormToJSON('#formOperacao');     
         OperacaoModel.TipoOperacao = TipoOperacao;
-        OperacaoModel.IdOperacao = pIdOperacao;
+        OperacaoModel.IdOperacao = pIdOperacao;   
+
+        alert(TipoOperacao);
+      
+
+
 
         return OperacaoModel
-    }
-
-    function FormatarValorMoeda(pValor) {
-        var valor = pValor.toFixed(2).replace('.', ',');
-        var valorFormatado = 'R$' + valor.toString();
-
-        return valorFormatado;
     }
 
     function AtualizarGridParcelas() {
@@ -119,17 +129,6 @@ $(document).ready(function () {
         });
     }
 
-    function ConvertFormToJSON(form) {
-        var array = jQuery(form).serializeArray();
-        var json = {};
-
-        jQuery.each(array, function () {
-            json[this.name] = this.value || '';
-        });
-
-        console.log('JSON: ' + json);
-        return json;
-    }   
 })
 
 

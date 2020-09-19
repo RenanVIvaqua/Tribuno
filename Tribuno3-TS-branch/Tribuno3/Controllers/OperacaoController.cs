@@ -117,18 +117,41 @@ namespace Tribuno3.Controllers
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
         }
-
-        public void DeletarOperacao(OperacaolModal pOperModal)
+           
+        public ActionResult DeletarOperacao(OperacaolModal pOperModal)
         {
-            operacaoBLL.DeletarOperacao(pOperModal.IdOperacao);
+            try
+            {            
+                operacaoBLL.DeletarOperacao(pOperModal.IdOperacao);
+
+                var result = new { Success = "True", Message = "Operação registrada." };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception erro)
+            {
+                var result = new { Success = "False", Message = erro.Message };
+                return Json(result, JsonRequestBehavior.DenyGet);
+            }
         }
 
-        public void CarregarParcelas(OperacaolModal pOperacaoModal)
+        public ActionResult CarregarParcelas(OperacaolModal pOperacaoModal)
         {
-            if (pOperacaoModal.Cadastro)
-                ListaParcelas = new List<OperacaoParcelasDTO>();
-            else
-                ListaParcelas = new OperacaoBLL().ConsultarParcelas(pOperacaoModal.IdOperacao);
+            try
+            {
+                if (pOperacaoModal.Cadastro)
+                    ListaParcelas = new List<OperacaoParcelasDTO>();
+                else
+                    ListaParcelas = new OperacaoBLL().ConsultarParcelas(pOperacaoModal.IdOperacao);
+
+                var result = new { Success = "True"};
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception erro)
+            {
+                var result = new { Success = "False", Message = erro.Message };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
         }
 
     }
