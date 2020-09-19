@@ -93,7 +93,7 @@ namespace Tribuno3.Controllers
 
         }
 
-        public ActionResult _Informativos(byte alterarMes = 0)
+        public PartialViewResult _Informativos(byte alterarMes = 0)
         {
             if (alterarMes == 1)
                 Session["Mes_Referente"] = Convert.ToInt32(Session["Mes_Referente"]) - 1;
@@ -106,9 +106,8 @@ namespace Tribuno3.Controllers
             return PartialView(ViewData.Model);
         }
         #endregion
-
-        [HttpPost]
-        public JsonResult listarDivida(int jtStartIndex = 0, int jtPageSize = 0, string jtSorting = null)
+              
+        public ActionResult listarDivida(int jtStartIndex = 0, int jtPageSize = 0, string jtSorting = null)
         {
             List<OperacaoDTO> lista = operacaoBLL.ListarOperacao(usuarioBLL.ConsultarUsuarioSessao(), TipoOperacao.Passivo);
             int qtd = lista.Count;
@@ -117,9 +116,8 @@ namespace Tribuno3.Controllers
 
             return Json(new { Result = "OK", Records = lista, TotalRecordCount = qtd });
         }
-
-        [HttpPost]
-        public JsonResult listarRendimento(int jtStartIndex = 0, int jtPageSize = 0, string jtSorting = null)
+           
+        public ActionResult listarRendimento(int jtStartIndex = 0, int jtPageSize = 0, string jtSorting = null)
         {
             List<OperacaoDTO> lista = operacaoBLL.ListarOperacao(usuarioBLL.ConsultarUsuarioSessao(), TipoOperacao.Rendimento);
 
@@ -212,8 +210,7 @@ namespace Tribuno3.Controllers
         {
             return PartialView();
         }
-
-
+        
         public ActionResult _OperacaoModal()
         {
             return PartialView();
